@@ -1,0 +1,12 @@
+{
+  "title": "string",
+  "description": "asd",
+  "imageSrc": "string",
+  "category": "string",
+  "roomCount": 3,
+  "bathroomCount": 2,
+  "guestCount": 4,
+  "locationValue": "string",
+  "price": 123,
+  "userId": "e55d2b06-30bb-43f3-8bf0-e6a1b1beb966"
+}

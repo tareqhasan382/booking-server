@@ -1,0 +1,9 @@
+{
+  "name":"user1",
+  "email":"user1@gmail.com",
+  "password":"user123",
+  "role":"user",
+  "contactNo":"01989342794",
+  "address":"Dhaka",
+  "profileImg":"userImage"
+}

@@ -1,0 +1,114 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  super_admin
+  admin
+  user
+}
+
+model Users {
+  id           String         @id @default(uuid())
+  name         String
+  email        String         @unique
+  password     String
+  role         UserRole       @default(user)
+  contactNo    String?        @map("contact_no")
+  address      String?
+  profileImg   String?        @map("profile_img")
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+  trips        Trips[]
+  reservedBook ReservedBook[]
+  reviews      Reviews[]
+
+  @@map("users")
+}
+
+model Trips {
+  id            String   @id @default(uuid())
+  title         String
+  description   String
+  imageSrc      String   @map("image_src")
+  category      String
+  roomCount     Int      @map("room_count")
+  bathroomCount Int      @map("bathroom_count")
+  guestCount    Int      @map("guest_count")
+  locationValue String   @map("location_value")
+  price         Int
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  userId       String?        @map("user_id")
+  user         Users?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reservedBook ReservedBook[]
+  reviews      Reviews[]
+
+  @@map("trips")
+}
+
+enum StatusRole {
+  pending
+  confirmed
+  canceled
+}
+
+model ReservedBook {
+  id         String     @id @default(uuid())
+  startDay   String     @map("start_day")
+  endDay     String     @map("end_daay")
+  totalPrice Int        @map("total_price")
+  status     StatusRole @default(pending)
+
+  userId String @map("user_id")
+  user   Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  payment   Payment[]
+  trips     Trips     @relation(fields: [tripsId], references: [id])
+  tripsId   String
+
+  @@map("reservedbook")
+}
+
+// id,startDate,endDate,totalPrice,status,userId,tripsId
+model Payment {
+  id        String   @id @default(uuid())
+  amount    Int
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  reservedBookId String       @map("reservedbook_id")
+  reservedBook   ReservedBook @relation(fields: [reservedBookId], references: [id], onDelete: Cascade)
+
+  @@map("payment")
+}
+
+// id, amount, reservedBookIdy
+model Reviews {
+  id        String   @id @default(uuid())
+  rating    Int // Assuming rating is an integer value (e.g., 1 to 5)
+  comment   String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  userId String @map("user_id")
+  users  Users  @relation(fields: [userId], references: [id])
+
+  trips   Trips  @relation(fields: [tripsId], references: [id])
+  tripsId String
+
+  @@map("reviews")
+}
+
+// id, rating,comment,userId,tripsId

@@ -1,0 +1,7 @@
+  {
+  "startDay": "10-20-2023",
+  "endDay": "10-20-2023",
+  "totalPrice": 99.9,
+  "userId": "2857cab8-6367-43b4-8e5e-9a7520e16a1f",
+  "tripsId": "b13cfdee-3470-4b69-8f8c-3f4bc43ce148"
+  }

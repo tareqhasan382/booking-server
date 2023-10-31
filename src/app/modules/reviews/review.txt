@@ -1,0 +1,7 @@
+  {
+  "rating": 4,
+  "comment": "Nice",
+  "userId": "d63cb62a-3830-405e-8bb8-7c8b6115ef61",
+  "tripsId": "4cbd8fec-c443-49de-b7e9-8cf98025cc33"
+  }
+
