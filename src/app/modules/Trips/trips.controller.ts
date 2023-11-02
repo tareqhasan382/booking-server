@@ -8,7 +8,9 @@ import { TripsFilterAbleFileds } from './trips.interface';
 import { TripsService } from './trips.service';
 
 const createTrip = catchAsync(async (req: Request, res: Response) => {
+  console.log('body:', req.body);
   const result = await TripsService.createTrip(req.body);
+
   sendResponse<Trips>(res, {
     statusCode: httpStatus.OK,
     success: true,

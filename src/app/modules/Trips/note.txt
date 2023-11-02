@@ -10,3 +10,34 @@
   "price": 123,
   "userId": "e55d2b06-30bb-43f3-8bf0-e6a1b1beb966"
 }
+
+[
+      {
+        "id": "0f1217b6-c03f-4d13-ae56-81518dc4cd37",
+        "title": "string",
+        "description": "asd",
+        "imageSrc": "string",
+        "category": "string",
+        "roomCount": 3,
+        "bathroomCount": 2,
+        "guestCount": 4,
+        "locationValue": "string",
+        "price": 123,
+        "createdAt": "2023-10-25T19:15:23.972Z",
+        "updatedAt": "2023-10-25T19:15:23.972Z",
+        "userId": "2857cab8-6367-43b4-8e5e-9a7520e16a1f"
+      },
+      {
+        
+       
+        
+        
+        
+        
+        
+        
+        2857cab8-6367-43b4-8e5e-9a7520e16a1f
+        
+        
+      }
+    ]

@@ -8,12 +8,11 @@ import cookieParser from 'cookie-parser';
 
 const app: Application = express();
 const corsOptions = {
-  origin: '*',
+  origin: 'https://booking-fontend.vercel.app', // https://booking-fontend.vercel.app/ || app.use(cors());
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
-// app.use(cors('*'));
 app.use(cookieParser());
 
 //parser
@@ -23,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/v1', routes);
 
 //global error handler
-//app.use(globalErrorHandler);
+//app.use(globalErrorHandler);s
 
 //handle not found
 app.use((req: Request, res: Response, next: NextFunction) => {
