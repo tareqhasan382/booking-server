@@ -7,12 +7,12 @@ import routes from './app/routes';
 import cookieParser from 'cookie-parser';
 
 const app: Application = express();
-// const corsOptions = {
-//   origin: 'http://localhost:3000', // https://booking-fontend.vercel.app/ || app.use(cors());
-//   credentials: true, //access-control-allow-credentials:true
-//   optionSuccessStatus: 200,
-// };
-app.use(cors());
+const corsOptions = {
+  origin: 'https://booking-fontend.vercel.apps', // https://booking-fontend.vercel.app/ || app.use(cors());
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
 //parser
