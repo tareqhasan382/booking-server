@@ -40,8 +40,11 @@ CREATE TABLE "trips" (
 );
 
 -- CreateTable
-CREATE TABLE "reserved" (
+CREATE TABLE "reservedbook" (
     "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "guest" INTEGER NOT NULL,
+    "phone" INTEGER NOT NULL,
     "start_day" TEXT NOT NULL,
     "end_daay" TEXT NOT NULL,
     "total_price" INTEGER NOT NULL,
@@ -51,16 +54,16 @@ CREATE TABLE "reserved" (
     "updated_at" TIMESTAMP(3) NOT NULL,
     "tripsId" TEXT NOT NULL,
 
-    CONSTRAINT "reserved_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "reservedbook_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "payment" (
     "id" TEXT NOT NULL,
-    "amount" DOUBLE PRECISION NOT NULL,
+    "amount" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
-    "reserved_id" TEXT NOT NULL,
+    "reservedbook_id" TEXT NOT NULL,
 
     CONSTRAINT "payment_pkey" PRIMARY KEY ("id")
 );
@@ -70,7 +73,6 @@ CREATE TABLE "reviews" (
     "id" TEXT NOT NULL,
     "rating" INTEGER NOT NULL,
     "comment" TEXT,
-    "date" TIMESTAMP(3) NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
     "user_id" TEXT NOT NULL,
@@ -86,13 +88,13 @@ CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 ALTER TABLE "trips" ADD CONSTRAINT "trips_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "reserved" ADD CONSTRAINT "reserved_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "reservedbook" ADD CONSTRAINT "reservedbook_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "reserved" ADD CONSTRAINT "reserved_tripsId_fkey" FOREIGN KEY ("tripsId") REFERENCES "trips"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "reservedbook" ADD CONSTRAINT "reservedbook_tripsId_fkey" FOREIGN KEY ("tripsId") REFERENCES "trips"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "payment" ADD CONSTRAINT "payment_reserved_id_fkey" FOREIGN KEY ("reserved_id") REFERENCES "reserved"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "payment" ADD CONSTRAINT "payment_reservedbook_id_fkey" FOREIGN KEY ("reservedbook_id") REFERENCES "reservedbook"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "reviews" ADD CONSTRAINT "reviews_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

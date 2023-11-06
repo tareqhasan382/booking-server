@@ -44,10 +44,10 @@ const getTrips = catchAsync(async (req: Request, res: Response) => {
 const getTrip = catchAsync(async (req: Request, res: Response) => {
   try {
     const result = await TripsService.getTrip(req.params.id);
-    sendResponse<Trips>(res, {
+    res.status(200).json({
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Trip retrieved successfully !!',
+      message: 'Book retrive successfully !!',
       data: result,
     });
   } catch (error) {

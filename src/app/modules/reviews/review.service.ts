@@ -75,9 +75,10 @@ const getAllReview = async (
   };
 };
 
-const getReview = async (id: string): Promise<Reviews | null> => {
-  const result = await prisma.reviews.findUnique({
-    where: { id },
+const getReview = async (id: string): Promise<Reviews[] | null> => {
+  // console.log(id);
+  const result = await prisma.reviews.findMany({
+    where: { tripsId: id },
   });
   return result;
 };

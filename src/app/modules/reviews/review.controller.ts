@@ -42,7 +42,7 @@ const getReviews = catchAsync(async (req: Request, res: Response) => {
 const getReview = catchAsync(async (req: Request, res: Response) => {
   try {
     const result = await ReviewService.getReview(req.params.id);
-    sendResponse<Reviews>(res, {
+    sendResponse<Reviews[] | null>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'Reviews retrieved successfully !!',

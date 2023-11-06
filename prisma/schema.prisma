@@ -64,6 +64,9 @@ enum StatusRole {
 
 model ReservedBook {
   id         String     @id @default(uuid())
+  name       String
+  guest      Int
+  phone      Int
   startDay   String     @map("start_day")
   endDay     String     @map("end_daay")
   totalPrice Int        @map("total_price")
@@ -81,7 +84,7 @@ model ReservedBook {
   @@map("reservedbook")
 }
 
-// id,startDate,endDate,totalPrice,status,userId,tripsId
+// id,startDate,endDate,totalPrice,userId,tripsId
 model Payment {
   id        String   @id @default(uuid())
   amount    Int
