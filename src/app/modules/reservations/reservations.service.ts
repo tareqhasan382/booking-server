@@ -75,10 +75,13 @@ const getAllReserve = async (
     data: result,
   };
 };
-
-const getReserve = async (id: string): Promise<IReservation | null> => {
-  const result = await prisma.reservedBook.findUnique({
-    where: { id },
+// where: { tripsId: id }, || userId
+const getReserve = async (id: string): Promise<IReservation[] | null> => {
+  const result = await prisma.reservedBook.findMany({
+    where: { userId: id },
+    include: {
+      trips: true,
+    },
   });
   return result;
 };

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Prisma, Trips } from '@prisma/client';
+import { Trips } from '@prisma/client';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
@@ -19,8 +19,8 @@ const getTrips = async (
 ): Promise<IGenericResponse<Trips[]>> => {
   const { page, skip, limit } = paginationHelpers.calculatePagination(options);
   const { searchTerm, ...filterData } = filters;
-  console.log('options service:', options);
-  console.log('filters service:', filters);
+  // console.log('options service:', options);
+  // console.log('filters service:', filters);
   const andConditons = [];
 
   if (searchTerm) {
@@ -44,12 +44,17 @@ const getTrips = async (
     });
   }
   // BooksWhereInput
-  const whereConditons: Prisma.TripsWhereInput =
-    andConditons.length > 0 ? { AND: andConditons } : {};
+  // const whereConditons: Prisma.TripsWhereInput =
+  //   andConditons.length > 0 ? { AND: andConditons } : {};
 
   //const result = await prisma.books.findMany();
   const result = await prisma.trips.findMany({
-    where: whereConditons,
+    where: {
+      locationValue: {
+        contains: searchTerm,
+        mode: 'insensitive',
+      },
+    },
     skip,
     take: limit,
     orderBy:

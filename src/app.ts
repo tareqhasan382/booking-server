@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 
 const app: Application = express();
 const corsOptions = {
-  origin: 'https://booking-fontend.vercel.app', // https://booking-fontend.vercel.app/ || app.use(cors());
+  origin: 'https://booking-fontend.vercel.app/', // https://booking-fontend.vercel.app/ || app.use(cors());
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };

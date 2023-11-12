@@ -15,7 +15,7 @@ export type ITrips = {
 export type ITripsFiltersRequest = {
   searchTerm?: string;
 };
-export const TripsSearchAbleFields = ['title', 'category', 'price'];
+export const TripsSearchAbleFields = ['title', 'category'];
 
 export const TripsFilterAbleFileds = [
   'searchTerm',
