@@ -4,6 +4,9 @@ CREATE TYPE "UserRole" AS ENUM ('super_admin', 'admin', 'user');
 -- CreateEnum
 CREATE TYPE "StatusRole" AS ENUM ('pending', 'confirmed', 'canceled');
 
+-- CreateEnum
+CREATE TYPE "PaymentStatus" AS ENUM ('PANDING', 'PAID');
+
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
@@ -58,14 +61,17 @@ CREATE TABLE "reservedbook" (
 );
 
 -- CreateTable
-CREATE TABLE "payment" (
+CREATE TABLE "payments" (
     "id" TEXT NOT NULL,
     "amount" INTEGER NOT NULL,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
     "reservedbook_id" TEXT NOT NULL,
+    "status" "PaymentStatus" NOT NULL DEFAULT 'PANDING',
+    "transactionId" TEXT NOT NULL,
+    "paymentGatewayData" JSONB,
+    "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
 
-    CONSTRAINT "payment_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "payments_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -94,7 +100,7 @@ ALTER TABLE "reservedbook" ADD CONSTRAINT "reservedbook_user_id_fkey" FOREIGN KE
 ALTER TABLE "reservedbook" ADD CONSTRAINT "reservedbook_tripsId_fkey" FOREIGN KEY ("tripsId") REFERENCES "trips"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "payment" ADD CONSTRAINT "payment_reservedbook_id_fkey" FOREIGN KEY ("reservedbook_id") REFERENCES "reservedbook"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "payments" ADD CONSTRAINT "payments_reservedbook_id_fkey" FOREIGN KEY ("reservedbook_id") REFERENCES "reservedbook"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "reviews" ADD CONSTRAINT "reviews_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

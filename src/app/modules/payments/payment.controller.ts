@@ -1,105 +1,93 @@
-import { Payment } from '@prisma/client';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
-import catchAsync from '../../../shared/catchAsync';
 import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
-import { PaymentFilterAbleFileds } from './payment.interface';
+import { paymentFilterableFields } from './payment.constants';
 import { PaymentService } from './payment.service';
+const initPayment = async (req: Request, res: Response) => {
+  // console.log('Data:', req.body);
+  const result = await PaymentService.initPayment(req.body);
 
-const createPayment = catchAsync(async (req: Request, res: Response) => {
-  const result = await PaymentService.createPayment(req.body);
-  sendResponse<Payment>(res, {
-    statusCode: httpStatus.OK,
+  sendResponse(res, {
     success: true,
-    message: 'Payment created successfully !!',
+    statusCode: httpStatus.OK,
+    message: 'Payment Request created successfully',
     data: result,
   });
-});
-const getPayments = catchAsync(async (req: Request, res: Response) => {
+};
+const success = async (req: Request, res: Response) => {
+  console.log('success  Data:', req.params.tranId);
+  const result = await PaymentService.success(req.params.tranId);
+  if (result.count > 0) {
+    res.redirect(
+      `https://booking-fontend.vercel.app/payment/success/${req.params.tranId}`
+    );
+  }
+};
+const fail = async (req: Request, res: Response) => {
+  console.log('success  Data:', req.params.tranId);
+  const result = await PaymentService.faield(req.params.tranId);
+  if (result) {
+    res.redirect(
+      `https://booking-fontend.vercel.app/payment/fail/${req.params.tranId}`
+    );
+  }
+};
+const webhook = async (req: Request, res: Response) => {
+  const result = await PaymentService.webhook(req.query);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Payment verified!',
+    data: result,
+  });
+};
+
+const getAllFromDB = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    // ?page=1&limit=3    ||  BookFilterAbleFileds
-    const filters = pick(req.query, PaymentFilterAbleFileds);
+    const filters = pick(req.query, paymentFilterableFields);
     const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
-
-    const result = await PaymentService.getAllPayment(filters, options); //BookService.getBooks(filters, options);
-    res.status(200).json({
+    const result = await PaymentService.getAllFromDB(filters, options);
+    sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Payment retrive successfully !!',
-      data: result,
+      message: 'Payments fetched successfully',
+      meta: result.meta,
+      data: result.data,
     });
   } catch (error) {
-    res.status(400).json({
-      statusCode: httpStatus.BAD_REQUEST,
-      success: false,
-      message: 'somthing went wrong !!',
-      data: error,
-    });
+    next(error);
   }
-});
+};
 
-const getPayment = catchAsync(async (req: Request, res: Response) => {
-  try {
-    const result = await PaymentService.getPayment(req.params.id);
-    sendResponse<Payment>(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'Payment retrieved successfully !!',
-      data: result,
-    });
-  } catch (error) {
-    res.status(400).json({
-      statusCode: httpStatus.BAD_REQUEST,
-      success: false,
-      message: 'somthing went wrong !!',
-      data: error,
-    });
-  }
-});
-const updatePayment = catchAsync(async (req: Request, res: Response) => {
+const getByIdFromDB = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { id } = req.params;
-    const payload = req.body;
-    const result = await PaymentService.updatePayment(id, payload); // BookService.updateBook(id, payload);
-    if (result) {
-      sendResponse(res, {
-        statusCode: httpStatus.OK,
-        success: true,
-        message: 'Payment updated successfully !!',
-      });
-    }
-  } catch (error) {
+    const result = await PaymentService.getByIdFromDB(id);
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'somthing went wrong!!',
-      data: error,
-    });
-  }
-});
-const deletePayment = catchAsync(async (req: Request, res: Response) => {
-  try {
-    const result = await PaymentService.deletePayment(req.params.id);
-    sendResponse<Payment>(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'Payment deleted successfully !!',
+      message: 'Payment fetched successfully',
       data: result,
     });
   } catch (error) {
-    sendResponse(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'somthing went wrong!!',
-      data: error,
-    });
+    next(error);
   }
-});
-export const PaymentControlller = {
-  createPayment,
-  getPayments,
-  getPayment,
-  updatePayment,
-  deletePayment,
+};
+
+export const PaymentController = {
+  initPayment,
+  success,
+  fail,
+  webhook,
+  getAllFromDB,
+  getByIdFromDB,
 };

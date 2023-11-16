@@ -6,7 +6,7 @@ import prisma from '../../../shared/prisma';
 import { ILoginUserResponse, IUser } from './auth.interface';
 // import bcrypt = require('bcrypt');
 const signup = async (data: IUser) => {
-  console.log(data);
+  // console.log(data);
   const result = await prisma.users.create({ data });
   return result;
 };

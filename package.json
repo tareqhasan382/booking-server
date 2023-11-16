@@ -37,6 +37,7 @@
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.3",
     "@types/jsonwebtoken": "^9.0.2",
+    "axios": "^1.6.2",
     "bcrypt": "^5.1.0",
     "cloudinary": "^1.41.0",
     "cookie-parser": "^1.4.6",
@@ -46,6 +47,7 @@
     "http-status": "^1.6.2",
     "jsonwebtoken": "^9.0.0",
     "prisma": "^5.2.0",
+    "sslcommerz-lts": "^1.1.0",
     "winston": "^3.9.0",
     "winston-daily-rotate-file": "^4.7.1",
     "zod": "^3.21.4"

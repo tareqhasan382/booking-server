@@ -1,11 +1,17 @@
 import express from 'express';
-import { PaymentControlller } from './payment.controller';
+// import { ENUM_USER_ROLE } from '../../../enums/user';
+// import auth from '../../middlewares/auth';
+import { PaymentController } from './payment.controller';
 
 const router = express.Router();
-router.post('/payment', PaymentControlller.createPayment);
-router.get('/payments', PaymentControlller.getPayments);
-router.get('/payment/:id', PaymentControlller.getPayment);
-router.patch('/payment/:id', PaymentControlller.updatePayment);
-router.delete('/payment/:id', PaymentControlller.deletePayment);
 
-export const PaymentRoutes = router;
+router.get('/payment', PaymentController.getAllFromDB);
+router.get('/payment/:id', PaymentController.getByIdFromDB);
+// auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+router.post('/payment/init', PaymentController.initPayment);
+router.post('/payment/success/:tranId', PaymentController.success);
+router.post('/payment/fail/:tranId', PaymentController.fail);
+
+router.get('/payment/webhook', PaymentController.webhook);
+
+export const paymentRoutes = router;

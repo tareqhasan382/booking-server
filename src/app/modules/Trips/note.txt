@@ -11,6 +11,19 @@
   "userId": "6fedb10c-ba30-4339-b079-437c6095dedb"
 }
 
+https://i.ibb.co/RCqCB7G/1971524389-beach-club-resort-gallery00.jpg
+https://i.ibb.co/7rLnjD7/902507.jpg
+https://i.ibb.co/QdxKBr4/02-GMPP.jpg
+https://i.ibb.co/gPg6R3T/050-PHUC-D212-010.jpg
+https://i.ibb.co/0KNP65D/goilc-poolside-bar-4034-hor-feat.jpg
+https://i.ibb.co/R0WvKNW/costa-adeje-gran-hotel-pool-spain-uhd-4k-wallpaper.jpg
+https://i.ibb.co/h29ZRJ3/pexels-media-1134176-scaled.jpg
+https://i.ibb.co/80MjXYZ/dreams-playa-mujeres-golf-and-spa-resort-all-inclusive.jpg
+https://i.ibb.co/fDVct4L/2974418.jpg
+https://i.ibb.co/WFRHmXv/str-SJUXRpo-313398-Outdoor-Swimming-Pool-Med-1536x1058.jpg
+https://i.ibb.co/BzqzCRY/thumb-1920-402052.jpg
+https://i.ibb.co/jJKZXF5/b2a20e57db8f101f46bed2b87ae989d6.jpg
+
 [
       {
         "id": "0f1217b6-c03f-4d13-ae56-81518dc4cd37",
@@ -41,3 +54,16 @@
         
       }
     ]
+
+    {
+  "title": "Lake View Deluxe Double Room Alleppey",
+  "description": "Enjoy royal hospitality in your room. The room comes with a king-size bed, AC, a TV, wardrobe and 24-hour room and laundry service. We also provide tea or coffee maker and complimentary Wi-Fi and breakfast. The room has a balcony.",
+  "imageSrc": "https://i.ibb.co/RCqCB7G/1971524389-beach-club-resort-gallery00.jpg",
+  "category": "Hotel hosted by Akhil",
+  "roomCount": 3,
+  "bathroomCount": 2,
+  "guestCount": 4,
+  "locationValue": "Kainakary South, Kerala, India",
+  "price": 123,
+  "userId": "235a72d1-1d3b-4fa9-a495-8a9950db976b"
+}

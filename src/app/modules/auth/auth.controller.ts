@@ -7,6 +7,17 @@ import bcrypt = require('bcrypt');
 const signup = catchAsync(async (req: Request, res: Response) => {
   try {
     const { name, email, password } = req.body;
+    const user = await prisma.users.findUnique({
+      where: { email },
+    });
+    //console.log('user:', user);
+    if (user) {
+      return res.status(httpStatus.CONFLICT).json({
+        statusCode: httpStatus.CONFLICT,
+        success: false,
+        message: 'User Already exist !!',
+      });
+    }
     const hashedPassword = await bcrypt.hash(password, 13);
     const data = {
       name: name,

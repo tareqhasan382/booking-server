@@ -1,0 +1,13 @@
+ amount             Int
+  reservedBookId     String        @map("reservedbook_id")
+  reservedBook       ReservedBook  @relation(fields: [reservedBookId], references: [id], onDelete: Cascade)
+  status             PaymentStatus @default(PANDING)
+  transactionId      String
+  paymentGatewayData Json?
+
+  {
+    "amount":"",
+    "reservedBookId":"",
+    "paymentGatewayData":"",
+    "status":"",
+  }

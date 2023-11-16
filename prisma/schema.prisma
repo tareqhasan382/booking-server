@@ -75,26 +75,45 @@ model ReservedBook {
   userId String @map("user_id")
   user   Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
-  payment   Payment[]
-  trips     Trips     @relation(fields: [tripsId], references: [id])
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  trips     Trips    @relation(fields: [tripsId], references: [id])
   tripsId   String
 
   @@map("reservedbook")
 }
 
 // id,startDate,endDate,totalPrice,userId,tripsId
-model Payment {
-  id        String   @id @default(uuid())
-  amount    Int
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+// model Payment {
+//   id        String   @id @default(uuid())
+//   amount    Int
+//   createdAt DateTime @default(now()) @map("created_at")
+//   updatedAt DateTime @updatedAt @map("updated_at")
 
-  reservedBookId String       @map("reservedbook_id")
-  reservedBook   ReservedBook @relation(fields: [reservedBookId], references: [id], onDelete: Cascade)
+//   reservedBookId String       @map("reservedbook_id")
+//   reservedBook   ReservedBook @relation(fields: [reservedBookId], references: [id], onDelete: Cascade)
 
-  @@map("payment")
+//   @@map("payment")
+// }
+
+//=====================================
+model Payments {
+  id                 String        @id @default(uuid())
+  amount             Int
+  reservedBookId     String        @map("reservedbook_id")
+  status             PaymentStatus @default(PANDING)
+  transactionId      String
+  paymentGatewayData Json?
+
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+
+  @@map("payments")
+}
+
+enum PaymentStatus {
+  PANDING
+  PAID
 }
 
 // id, amount, reservedBookIdy
